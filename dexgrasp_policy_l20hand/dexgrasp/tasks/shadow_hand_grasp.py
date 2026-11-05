@@ -226,7 +226,7 @@ class ShadowHandGrasp(BaseTask):
             shadow_hand_asset_file = self.cfg["env"]["asset"].get("assetFileName", shadow_hand_asset_file)
 
         asset_root = str((Path(__file__).resolve().parents[1] / asset_root).resolve())
-        runtime = self.l20_model.path.with_name('linkerhand_l20_right_isaac.urdf')
+        runtime = self.l20_model.asset_dir/'linkerhand_l20_right_isaac.urdf'
         if not runtime.is_file() or runtime.read_text() != self.l20_model.runtime_urdf():
             raise ValueError("Run python -m l20.prepare from repository root first")
         hand_asset_root = str(runtime.parent)

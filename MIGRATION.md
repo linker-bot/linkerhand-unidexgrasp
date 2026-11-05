@@ -3,8 +3,18 @@
 This implementation targets the state-based PPO task. It uses the right-hand
 model from [`linkerhand-urdf`](https://github.com/linker-bot/linkerhand-urdf/tree/49f26021b0a91ff5c33150df22970c07bb548672/L20/right)
 at commit `49f26021b0a91ff5c33150df22970c07bb548672`.
+The upstream repository is a submodule at `third_party/linkerhand-urdf`, pinned
+to that commit by the parent repository. Source and derived asset locations are
+separate:
+
+```text
+third_party/linkerhand-urdf/L20/right/  # upstream URDF and visual meshes
+l20/assets/l20_right/                 # runtime URDF, collision meshes, manifests
+```
+
 The source repository and asset checksums are recorded in `SOURCE.json` and
-`l20/assets/l20_right/manifest.json`.
+`l20/assets/l20_right/manifest.json`. Initialization is explicit; model loading
+and training do not download dependencies or update the submodule.
 
 Local validation covers kinematics, data conversion, CPU tensors, and mocked
 simulator interfaces. The implementation has not been executed in Isaac Gym,
@@ -62,13 +72,19 @@ position targets, reset positions, and reset velocities use the same expansion.
 
 ## Runtime assets and control
 
-The source URDF and its 22 STL files are retained. `python -m l20.prepare`
-verifies their checksums and prepares a separate runtime URDF:
+The source URDF and its 22 STL files are read from the submodule.
+`python -m l20.prepare` verifies the checked-out commit and source-file
+checksums, then prepares a separate runtime URDF in this repository:
 
 - Mimic tags are removed so the importer exposes all 21 physical joints.
 - The controller expands 16 independent targets into those joints by name.
 - Collision geometry uses one convex hull per link. Visual geometry, mass, and
   inertia remain from the source URDF.
+
+Runtime visual paths point to the submodule using relative paths. Generated
+URDFs, convex meshes, and manifests stay under `l20/assets/l20_right`; preparation
+does not write to the upstream checkout. Derived collision assets remain tracked
+because they participate in prior and checkpoint compatibility checks.
 
 The source `base_link.STL` is not watertight when loaded with Trimesh. Prepared
 convex meshes allow interior queries and are shared by geometric screening and
@@ -155,10 +171,23 @@ candidates are not evidence of a 50% dynamic grasp success rate.
 From the repository root, in the existing Python 3.8 environment:
 
 ```bash
+git submodule update --init --recursive -- third_party/linkerhand-urdf
 pip install -r requirements-l20.txt
 python -m l20.prepare
 python -m pytest -q
 ```
+
+Use the explicit submodule path: the original repository also contains a CSDF
+gitlink without a `.gitmodules` entry, which prevents an unqualified recursive
+submodule update. The CPU test workflow initializes only the model dependency.
+It runs the tests with Python 3.8 and PyTorch 1.13.1 on Linux; it does not run
+Isaac Gym.
+
+When updating the parent repository, run the same scoped submodule update to
+check out its recorded model revision. Do not use `git submodule update --remote`
+for training. An upstream model update should explicitly change the submodule
+commit, source manifest, and model revision constant, followed by asset
+preparation, prior regeneration where required, and validation.
 
 Asset preparation verifies and reuses the checked-in convex meshes by default.
 `python -m l20.prepare --rebuild` regenerates them. If their checksums change,

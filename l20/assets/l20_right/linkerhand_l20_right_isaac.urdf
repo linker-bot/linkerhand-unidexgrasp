@@ -15,7 +15,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/base_link.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/base_link.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -35,7 +35,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/pinky_metacarpals.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/pinky_metacarpals.STL" />
       </geometry>
       <material name="BlackAccent" />
     </visual>
@@ -62,7 +62,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/pinky_proximal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/pinky_proximal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -89,7 +89,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/pinky_middle.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/pinky_middle.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -116,7 +116,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/pinky_distal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/pinky_distal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -143,7 +143,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/ring_metacarpals.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/ring_metacarpals.STL" />
       </geometry>
       <material name="BlackAccent" />
     </visual>
@@ -170,7 +170,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/ring_proximal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/ring_proximal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -197,7 +197,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/ring_middle.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/ring_middle.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -224,7 +224,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/ring_distal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/ring_distal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -251,7 +251,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/middle_metacarpals.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/middle_metacarpals.STL" />
       </geometry>
       <material name="BlackAccent" />
     </visual>
@@ -278,7 +278,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/middle_proximal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/middle_proximal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -305,7 +305,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/middle_middle.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/middle_middle.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -332,7 +332,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/middle_distal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/middle_distal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -359,7 +359,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/index_metacarpals.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/index_metacarpals.STL" />
       </geometry>
       <material name="BlackAccent" />
     </visual>
@@ -386,7 +386,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/index_proximal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/index_proximal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -413,7 +413,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/index_middle.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/index_middle.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -440,7 +440,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/index_distal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/index_distal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -467,7 +467,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/thumb_metacarpals_base1.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/thumb_metacarpals_base1.STL" />
       </geometry>
       <material name="BlackAccent" />
     </visual>
@@ -494,7 +494,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/thumb_metacarpals_base2.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/thumb_metacarpals_base2.STL" />
       </geometry>
       <material name="BlackAccent" />
     </visual>
@@ -521,7 +521,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/thumb_metacarpals.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/thumb_metacarpals.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -548,7 +548,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/thumb_proximal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/thumb_proximal.STL" />
       </geometry>
       <material name="silver" />
     </visual>
@@ -575,7 +575,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="meshes/thumb_distal.STL" />
+        <mesh filename="../../../third_party/linkerhand-urdf/L20/right/meshes/thumb_distal.STL" />
       </geometry>
       <material name="silver" />
     </visual>

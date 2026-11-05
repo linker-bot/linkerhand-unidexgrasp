@@ -12,6 +12,7 @@ from l20.control import JointLayout, NUM_ACTIONS, OBSERVATION_DIM, position_targ
 from l20.priors import save_prior, load_prior
 from l20.retarget import Retargeter, landmarks, FINGERTIP_LINKS, OFFICIAL_BASES
 from l20.checkpoint import policy_contract, pack, unpack
+from l20.source import SOURCE_ROOT, SOURCE_MANIFEST, URDF_COMMIT, verify_official_source
 
 ROOT = Path(__file__).resolve().parents[1]
 TASK = ROOT/'dexgrasp_policy_l20hand/dexgrasp/tasks/shadow_hand_grasp.py'
@@ -56,7 +57,7 @@ def test_control_modes_slice_joints_and_preserve_bounds(relative,backend):
 
 def test_asset_manifest_and_relative_paths():
     import hashlib
-    manifest=json.loads(OFFICIAL_URDF.with_name('manifest.json').read_text())
+    manifest=json.loads(SOURCE_MANIFEST.read_text())
     assert len(manifest['files'])==23
     for record in manifest['files']:
         assert hashlib.sha256((OFFICIAL_URDF.parent/record['path']).read_bytes()).hexdigest()==record['sha256']
@@ -65,6 +66,56 @@ def test_asset_manifest_and_relative_paths():
         assert resolve_mesh(element.get('filename'),m.path).is_file()
     assert '<mimic' not in m.runtime_urdf()
     assert '<mimic' in m.path.read_text()
+    runtime=m.asset_dir/'linkerhand_l20_right_isaac.urdf'
+    import xml.etree.ElementTree as ET
+    for element in ET.fromstring(m.runtime_urdf()).findall('.//mesh'):
+        assert resolve_mesh(element.get('filename'),runtime).is_file()
+
+def test_official_submodule_revision():
+    import subprocess
+    assert subprocess.check_output(['git','-C',str(SOURCE_ROOT),'rev-parse','HEAD'],text=True).strip()==URDF_COMMIT
+    entry=subprocess.check_output(['git','-C',str(ROOT),'ls-files','--stage','--','third_party/linkerhand-urdf'],text=True)
+    assert entry.split()[:2]==['160000',URDF_COMMIT]
+    verify_official_source(check_revision=True)
+
+def test_missing_submodule_has_initialization_instructions(tmp_path):
+    with pytest.raises(RuntimeError,match='git submodule update --init --recursive -- third_party/linkerhand-urdf'):
+        verify_official_source(root=tmp_path/'missing')
+
+def test_modified_official_source_is_rejected(tmp_path):
+    import hashlib
+    root=tmp_path/'upstream';directory=root/'L20/right';directory.mkdir(parents=True)
+    source=OFFICIAL_URDF.read_bytes()
+    manifest=tmp_path/'manifest.json'
+    manifest.write_text(json.dumps(dict(commit=URDF_COMMIT,files=[dict(path=OFFICIAL_URDF.name,sha256=hashlib.sha256(source).hexdigest())])))
+    (directory/OFFICIAL_URDF.name).write_bytes(source+b'\n')
+    with pytest.raises(ValueError,match='checksum mismatch'):
+        verify_official_source(root=root,manifest_path=manifest)
+
+def test_wrong_submodule_revision_is_rejected(monkeypatch):
+    from l20 import source
+    def output(command,**kwargs):
+        return str(SOURCE_ROOT) if command[-1]=='--show-toplevel' else '0'*40
+    monkeypatch.setattr(source.subprocess,'check_output',output)
+    with pytest.raises(RuntimeError,match='must be at '+URDF_COMMIT):
+        verify_official_source(check_revision=True)
+
+def test_preparation_keeps_upstream_read_only_and_preserves_collision_hash():
+    import hashlib
+    import subprocess
+    from l20.prepare import main
+    from l20.model import collision_contract
+    manifest=json.loads(SOURCE_MANIFEST.read_text())
+    def files():
+        return {record['path']:hashlib.sha256((OFFICIAL_URDF.parent/record['path']).read_bytes()).hexdigest() for record in manifest['files']}
+    before=files();contract=collision_contract(L20Model())
+    status=subprocess.check_output(['git','-C',str(SOURCE_ROOT),'status','--porcelain'],text=True)
+    main()
+    assert files()==before
+    assert collision_contract(L20Model())==contract
+    assert subprocess.check_output(['git','-C',str(SOURCE_ROOT),'status','--porcelain'],text=True)==status
+    assert not (OFFICIAL_URDF.parent/'collision').exists()
+    assert not OFFICIAL_URDF.with_name('linkerhand_l20_right_isaac.urdf').exists()
 
 def test_prior_roundtrip_and_version_rejection(tmp_path):
     m=L20Model();p=tmp_path/'p.npz'

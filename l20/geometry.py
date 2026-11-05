@@ -36,7 +36,7 @@ class GeometryScreen:
             if element is None:
                 continue
             # Load precisely the same prepared collision file as IsaacGym.
-            path = self.model.path.parent/'collision'/(link.get('name')+'.STL')
+            path = self.model.asset_dir/'collision'/(link.get('name')+'.STL')
             mesh = trimesh.load(str(path),force='mesh',process=True)
             mesh.apply_scale(np.fromstring(element.get('scale','1 1 1'),sep=' '))
             mesh.apply_transform(origin(collision.find('origin')))

@@ -1,28 +1,25 @@
 """Verify pinned assets and generate an importer-independent 21-DOF URDF."""
 import hashlib
 import json
-from .model import L20Model, URDF_COMMIT, resolve_mesh, collision_contract
+from .model import L20Model, resolve_mesh, collision_contract
+from .source import verify_official_source
 
 def main(rebuild=False):
+    verify_official_source(check_revision=True)
     import trimesh
     model = L20Model()
-    manifest = json.loads(model.path.with_name('manifest.json').read_text())
-    if manifest['commit']!=URDF_COMMIT:
-        raise ValueError('Asset manifest commit mismatch')
-    for record in manifest['files']:
-        path = model.path.parent/record['path']
-        if hashlib.sha256(path.read_bytes()).hexdigest()!=record['sha256']:
-            raise ValueError('Asset checksum mismatch: '+str(path))
     for mesh in model.root.findall('.//mesh'):
         resolve_mesh(mesh.get('filename'),model.path)
-    runtime = model.path.with_name('linkerhand_l20_right_isaac.urdf')
-    if not rebuild and model.path.with_name('collision-manifest.json').is_file():
+    runtime = model.asset_dir/'linkerhand_l20_right_isaac.urdf'
+    if not rebuild and (model.asset_dir/'collision-manifest.json').is_file():
         collision_contract(model)
-        if runtime.is_file() and runtime.read_text()==model.runtime_urdf():
-            print('Verified and reused the pinned prepared collision assets')
-            return
-    directory = model.path.parent/'collision'
-    directory.mkdir(exist_ok=True)
+        expected = model.runtime_urdf()
+        if not runtime.is_file() or runtime.read_text()!=expected:
+            runtime.write_text(expected)
+        print('Verified upstream submodule and reused the prepared collision assets')
+        return
+    directory = model.asset_dir/'collision'
+    directory.mkdir(parents=True,exist_ok=True)
     generated = []
     for link in model.root.findall('link'):
         for collision in link.findall('collision'):
@@ -33,10 +30,10 @@ def main(rebuild=False):
             hull = mesh.convex_hull
             path = directory/(link.get('name')+'.STL')
             hull.export(str(path),file_type='stl')
-            generated.append(dict(path=str(path.relative_to(model.path.parent)),sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
-    path = model.path.with_name('linkerhand_l20_right_isaac.urdf')
+            generated.append(dict(path=str(path.relative_to(model.asset_dir)),sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+    path = runtime
     path.write_text(model.runtime_urdf())
-    model.path.with_name('collision-manifest.json').write_text(json.dumps(
+    (model.asset_dir/'collision-manifest.json').write_text(json.dumps(
         dict(method='convex_hull_per_link_v1',source_urdf_sha256=model.sha256,
              trimesh_version=trimesh.__version__,files=generated),indent=2)+'\n')
     print('Verified official URDF and meshes; generated '+str(path))

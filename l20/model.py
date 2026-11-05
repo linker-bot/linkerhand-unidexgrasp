@@ -2,13 +2,12 @@
 from pathlib import Path
 import hashlib
 import json
+import os
 import xml.etree.ElementTree as ET
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-ASSETS = Path(__file__).resolve().parent / 'assets'
-OFFICIAL_URDF = ASSETS / 'l20_right/linkerhand_l20_right.urdf'
-URDF_COMMIT = '49f26021b0a91ff5c33150df22970c07bb548672'
+from .source import ASSETS, OFFICIAL_URDF, RUNTIME_ASSETS, URDF_COMMIT, verify_official_source
 FINGERS = ('index', 'middle', 'ring', 'pinky', 'thumb')
 FINGERTIP_LINKS = tuple(f + '_distal' for f in FINGERS)
 INDEPENDENT_NAMES = tuple(f + '_' + j for f in FINGERS[:-1]
@@ -16,13 +15,13 @@ INDEPENDENT_NAMES = tuple(f + '_' + j for f in FINGERS[:-1]
     'thumb_cmc_yaw', 'thumb_cmc_roll', 'thumb_cmc_pitch', 'thumb_mcp')
 
 def collision_contract(model):
-    manifest = json.loads(model.path.with_name('collision-manifest.json').read_text())
+    manifest = json.loads((model.asset_dir/'collision-manifest.json').read_text())
     if manifest.get('source_urdf_sha256') != model.sha256 or manifest.get('method') != 'convex_hull_per_link_v1':
         raise ValueError('Collision assets do not match official source URDF')
     if len(manifest['files']) != 22:
         raise ValueError('Expected 22 generated convex collision meshes')
     for entry in manifest['files']:
-        path = model.path.parent/entry['path']
+        path = model.asset_dir/entry['path']
         if hashlib.sha256(path.read_bytes()).hexdigest() != entry['sha256']:
             raise ValueError('Collision asset checksum mismatch: '+str(path))
     return hashlib.sha256(json.dumps(manifest['files'],sort_keys=True).encode()).hexdigest()
@@ -95,7 +94,10 @@ class URDFModel:
 
 class L20Model(URDFModel):
     def __init__(self, path=OFFICIAL_URDF):
+        if Path(path).resolve()==OFFICIAL_URDF.resolve():
+            verify_official_source()
         super().__init__(path)
+        self.asset_dir = RUNTIME_ASSETS
         self.sha256 = hashlib.sha256(self.path.read_bytes()).hexdigest()
         base_inertial = self.root.find("link[@name='base_link']/inertial/origin")
         self.palm_reference = origin(base_inertial)[:3,3]
@@ -153,6 +155,9 @@ class L20Model(URDFModel):
         # Explicit conservative convex collision assets also used by screening.
         # The upstream base STL is not watertight; never query its interior.
         for link in root.findall('link'):
+            for mesh in link.findall('visual/geometry/mesh'):
+                source = resolve_mesh(mesh.get('filename'),self.path)
+                mesh.set('filename',Path(os.path.relpath(source,self.asset_dir)).as_posix())
             for collision in link.findall('collision'):
                 mesh = collision.find('geometry/mesh')
                 if mesh is not None:

@@ -17,6 +17,9 @@ import json
 
 def parse_task(args, cfg, cfg_train, sim_params, agent_index):
 
+    if cfg['env'].get('handModel') == 'official_l20_right_v2':
+        if args.task != 'ShadowHandGrasp' or args.algo != 'ppo' or getattr(args,'vision',False):
+            raise ValueError('Official L20 v2 currently supports state PPO only; the upstream vision/DAgger paths retain ShadowHand contracts')
     # create native task and pass custom config
     device_id = args.device_id
     rl_device = args.rl_device

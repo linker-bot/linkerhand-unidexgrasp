@@ -1,0 +1,4 @@
+[submodule "third_party/linkerhand-urdf"]
+	path = third_party/linkerhand-urdf
+	url = https://github.com/linker-bot/linkerhand-urdf.git
+	shallow = true

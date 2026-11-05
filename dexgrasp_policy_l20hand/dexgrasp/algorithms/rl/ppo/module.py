@@ -4,9 +4,6 @@ import torch
 import torch.nn as nn
 from torch.distributions import MultivariateNormal
 from typing import Optional
-from algo.pn_utils.maniskill_learn.networks.backbones.pointnet import getPointNet
-from algo.pn_utils.maniskill_learn.networks.backbones.pointnet import getPointNetWithInstanceInfo
-import pytorch_lightning as pl
 from typing import List, Optional, Tuple
 
 
@@ -21,6 +18,7 @@ class PointNetBackbone(nn.Module):
         # self.save_hyperparameters()
         self.pc_dim = pc_dim
         self.feature_dim = feature_dim
+        from algo.pn_utils.maniskill_learn.networks.backbones.pointnet import getPointNet
         self.backbone = getPointNet({
                 'input_feature_dim': self.pc_dim,
                 'feat_dim': self.feature_dim
@@ -66,6 +64,7 @@ class TransPointNetBackbone(nn.Module):
         else:
             cfg["mask_dim"] = 0
 
+        from algo.pn_utils.maniskill_learn.networks.backbones.pointnet import getPointNetWithInstanceInfo
         self.transpn = getPointNetWithInstanceInfo(cfg)
 
     def forward(self, input_pc):
@@ -81,10 +80,11 @@ class ActorCritic(nn.Module):
 
         self.asymmetric = asymmetric
         self.use_pc = use_pc
-        self.backbone_type = model_cfg['backbone_type']
-        self.freeze_backbone = model_cfg["freeze_backbone"]
+        model_cfg = model_cfg or {}
+        self.backbone_type = model_cfg.get("backbone_type","pn")
+        self.freeze_backbone = model_cfg.get("freeze_backbone",False)
 
-        if model_cfg is None:
+        if not model_cfg:
             actor_hidden_dim = [256, 256, 256]
             critic_hidden_dim = [256, 256, 256]
             activation = get_activation("selu")
@@ -93,7 +93,8 @@ class ActorCritic(nn.Module):
             critic_hidden_dim = model_cfg['vf_hid_sizes']
             activation = get_activation(model_cfg['activation'])
 
-        self.num_obs = 254
+        self.state_obs_dim = 254 if self.use_pc else int(obs_shape[0])
+        self.num_obs = self.state_obs_dim
         
         if self.use_pc:
             self.num_obs = 191 + 29 #(robot_state)
@@ -121,7 +122,7 @@ class ActorCritic(nn.Module):
                 actor_layers.append(activation)
         self.actor = nn.Sequential(*actor_layers)
 
-        critic_layers.append(nn.Linear(self.num_obs, critic_hidden_dim[0]))
+        critic_layers.append(nn.Linear(int(states_shape[0]) if asymmetric else self.num_obs, critic_hidden_dim[0]))
         critic_layers.append(activation)
         for l in range(len(critic_hidden_dim)):
             if l == len(critic_hidden_dim) - 1:
@@ -154,7 +155,7 @@ class ActorCritic(nn.Module):
         raise NotImplementedError
 
     def act(self, observations, states):
-        numObservations = 254
+        numObservations = self.state_obs_dim
 
         # print(self.use_pc, self.freeze_backbone)#False Fasle
         if self.use_pc and not self.freeze_backbone:
@@ -192,10 +193,10 @@ class ActorCritic(nn.Module):
         # actions_mean = torch.where(torch.isinf(actions_mean), torch.zeros_like(actions_mean), actions_mean)
 
         # print('actions_mean', actions_mean)
-        covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
+        covariance = torch.diag(self.log_std.exp())
         # print('covariance', covariance)
 
-        covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
+        covariance = torch.diag(self.log_std.exp())
         # covariance = torch.where(torch.isnan(covariance), torch.zeros_like(covariance), covariance)
         # covariance = torch.where(torch.isinf(covariance), torch.zeros_like(covariance), covariance)
 
@@ -230,7 +231,7 @@ class ActorCritic(nn.Module):
         return actions.detach(), actions_log_prob.detach(), value.detach(), actions_mean.detach(), self.log_std.repeat(actions_mean.shape[0], 1).detach()
 
     def act_inference(self, observations):
-        numObservations = 254
+        numObservations = self.state_obs_dim
         if self.use_pc and not self.freeze_backbone:
             if self.backbone_type =="transpn":
                 pc = observations[:, numObservations:numObservations+6144].reshape(-1, 1024, 6)
@@ -263,7 +264,7 @@ class ActorCritic(nn.Module):
         return actions_mean.detach()
         
     def evaluate(self, observations, states, actions):
-        numObservations = 254
+        numObservations = self.state_obs_dim
         if self.use_pc and not self.freeze_backbone:
             if self.backbone_type =="transpn":
                 pc = observations[:, numObservations:numObservations+6144].reshape(-1, 1024, 6)
@@ -297,7 +298,7 @@ class ActorCritic(nn.Module):
         # actions_mean = torch.where(torch.isnan(actions_mean), torch.zeros_like(actions_mean), actions_mean)
         # actions_mean = torch.where(torch.isinf(actions_mean), torch.zeros_like(actions_mean), actions_mean)
         #
-        covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
+        covariance = torch.diag(self.log_std.exp())
         # covariance = torch.where(torch.isnan(covariance), torch.zeros_like(covariance), covariance)
         # covariance = torch.where(torch.isinf(covariance), torch.zeros_like(covariance), covariance)
         #
@@ -349,4 +350,3 @@ def get_activation(act_name):
     else:
         print("invalid activation function!")
         return None
-

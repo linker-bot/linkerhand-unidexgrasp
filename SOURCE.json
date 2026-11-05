@@ -1,0 +1,22 @@
+{
+  "unidexgrasp": {
+    "repository": "https://github.com/linker-bot/linkerhand-unidexgrasp",
+    "commit": "589d7231aebaf7cc6c85cf83b1b361b017ca0f7c"
+  },
+  "official_model": {
+    "repository": "https://github.com/linker-bot/linkerhand-urdf",
+    "commit": "49f26021b0a91ff5c33150df22970c07bb548672",
+    "directory": "L20/right",
+    "submodule": "third_party/linkerhand-urdf",
+    "original_files_manifest": "l20/assets/l20_right/manifest.json"
+  },
+  "source_generator_model": {
+    "path_in_unidexgrasp": "dexgrasp_generation_forlinker/data/mjcf/shadow_hand.xml",
+    "vendored_path": "l20/assets/shadow_hand.xml"
+  },
+  "derived_collision_model": "convex_hull_per_link_v1",
+  "mimic_execution": "explicit_position_targets; not a rigid mechanical constraint",
+  "scope": "state PPO; upstream vision and DAgger remain outside the migrated contract",
+  "isaacgym_execution_validated": false,
+  "hardware_execution_validated": false
+}

@@ -33,13 +33,13 @@ class Meshdata(Dataset):
             # for scale in [0.06, 0.08, 0.1, 0.12, 0.15]:
             #     indices = np.random.permutation(len(pose_matrices))[:cfg['n_samples']]#对于每个缩放尺度，随即选择n_samples个旋转矩阵。
             #     for index in indices:
-            #         pose_matrix = pose_matrices[index]
+            #         pose_matrix = pose_matrices[index].copy()
             #         pose_matrix[:2, 3] = 0
             #         self.object_list.append((object_code, pcs_table[index], scale, pose_matrix))
             for scale in [0.1]:
                 indices = np.random.permutation(len(pose_matrices))[:cfg['n_samples']]#对于每个缩放尺度，随即选择n_samples个旋转矩阵。
                 for index in indices:
-                    pose_matrix = pose_matrices[index]
+                    pose_matrix = pose_matrices[index].copy()
                     pose_matrix[:2, 3] = 0
                     self.object_list.append((object_code, pcs_table[index], scale, pose_matrix))
     
@@ -66,9 +66,12 @@ class Meshdata(Dataset):
         plane[2] = 1
         #plane = pose_matrix[2].copy()
         #plane[3] *= scale
+        object_pose = pose_matrix.copy()
+        object_pose[:3,3] *= scale
         ret_dict = {
             "object_code": object_code, 
             "obj_pc": object_pc,
+            "object_pose": torch.from_numpy(object_pose),
             "plane": plane,
             "scale": scale,
         }
@@ -98,13 +101,13 @@ class Meshdata_mypc(Dataset):
             # for scale in [0.06, 0.08, 0.1, 0.12, 0.15]:
             #     indices = np.random.permutation(len(pose_matrices))[:cfg['n_samples']]#对于每个缩放尺度，随即选择n_samples个旋转矩阵。
             #     for index in indices:
-            #         pose_matrix = pose_matrices[index]
+            #         pose_matrix = pose_matrices[index].copy()
             #         pose_matrix[:2, 3] = 0
             #         self.object_list.append((object_code, pcs_table[index], scale, pose_matrix))
             for scale in [0.1]:
                 indices = np.random.permutation(len(pose_matrices))[:cfg['n_samples']]  # 对于每个缩放尺度，随即选择n_samples个旋转矩阵。
                 for index in indices:
-                    pose_matrix = pose_matrices[index]
+                    pose_matrix = pose_matrices[index].copy()
                     pose_matrix[:2, 3] = 0
                     self.object_list.append((object_code, pcs_table[index], scale, pose_matrix))
 
@@ -132,9 +135,12 @@ class Meshdata_mypc(Dataset):
         plane[2] = 1
         # plane = pose_matrix[2].copy()
         # plane[3] *= scale
+        object_pose = pose_matrix.copy()
+        object_pose[:3,3] *= scale
         ret_dict = {
             "object_code": object_code,
             "obj_pc": object_pc,
+            "object_pose": torch.from_numpy(object_pose),
             "plane": plane,
             "scale": scale,
         }

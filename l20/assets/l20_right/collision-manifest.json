@@ -1,0 +1,95 @@
+{
+  "method": "convex_hull_per_link_v1",
+  "source_urdf_sha256": "171c28116fe6f1e7b885fd5cf046044c4367c7d0b8036ab4743946cc8e619b9a",
+  "trimesh_version": "5.2.0",
+  "files": [
+    {
+      "path": "collision/base_link.STL",
+      "sha256": "d44459a7584314aee17bd98a524967ed65054339d25949b9cfe093d99b816309"
+    },
+    {
+      "path": "collision/pinky_metacarpals.STL",
+      "sha256": "ad6d7b1775836139bcb84856d1c448dbfab91dedb42eb415ed109def7aaebde3"
+    },
+    {
+      "path": "collision/pinky_proximal.STL",
+      "sha256": "0f11d0f129c1370d38a061d186ad5934b47ca3a587159d2da2e8927cf30ca739"
+    },
+    {
+      "path": "collision/pinky_middle.STL",
+      "sha256": "a8f8e65d1a45fae18912abb7d7fe20055396ca56f866ce3ca0eb642baca0bc0a"
+    },
+    {
+      "path": "collision/pinky_distal.STL",
+      "sha256": "2c6ef330f2aa16a1f5b1e0a0a3a84144c931584b3e3ad88df6bbc313c9780d7e"
+    },
+    {
+      "path": "collision/ring_metacarpals.STL",
+      "sha256": "46f9fe08d62152c5aa8e890b93c1856a0ee01f5694748e6aa97ab5d1d5f5025d"
+    },
+    {
+      "path": "collision/ring_proximal.STL",
+      "sha256": "d77eff5cd42e22d9d690d8a506ca63f4e6d006bd340d2d85f50ecbcd8c010828"
+    },
+    {
+      "path": "collision/ring_middle.STL",
+      "sha256": "ff9b573e35e18142ad891474b65b77fd75bd328df02b7ffacfffb0829dbb3197"
+    },
+    {
+      "path": "collision/ring_distal.STL",
+      "sha256": "a554d1bbc6d74380716757c5c0815f77e28a4d678d116d865a827d72155eac8e"
+    },
+    {
+      "path": "collision/middle_metacarpals.STL",
+      "sha256": "46f9fe08d62152c5aa8e890b93c1856a0ee01f5694748e6aa97ab5d1d5f5025d"
+    },
+    {
+      "path": "collision/middle_proximal.STL",
+      "sha256": "908be68084ee5137b5a3bbab8014cfb03f0801ab971f9e802ad984a4dfa5ea7c"
+    },
+    {
+      "path": "collision/middle_middle.STL",
+      "sha256": "fdd43cf985b75647bdf2101cdbcf7dda8b3cd86ac57f2385cb913689e9efbdf4"
+    },
+    {
+      "path": "collision/middle_distal.STL",
+      "sha256": "c15212762a46b231eb5c1f6b42190da45a52739cde6c81fab4768f43bcf78a5c"
+    },
+    {
+      "path": "collision/index_metacarpals.STL",
+      "sha256": "46f9fe08d62152c5aa8e890b93c1856a0ee01f5694748e6aa97ab5d1d5f5025d"
+    },
+    {
+      "path": "collision/index_proximal.STL",
+      "sha256": "9980f622bb486b25f5bb3603026c4cca5c1f3754918365bc9380814141e468b7"
+    },
+    {
+      "path": "collision/index_middle.STL",
+      "sha256": "c86dfb74bc62568f4dc540136d534021a25d8d31cef80bcb4ac1655be1a086b3"
+    },
+    {
+      "path": "collision/index_distal.STL",
+      "sha256": "fecb174edde93b8ebab6307020d24c5a2be64a87e5afb1a8659bf1b376988267"
+    },
+    {
+      "path": "collision/thumb_metacarpals_base1.STL",
+      "sha256": "6a82536f58f959bd7690a470422c06343b9c06c3dd6ec5e99b5da594d1ce152a"
+    },
+    {
+      "path": "collision/thumb_metacarpals_base2.STL",
+      "sha256": "51408c0fde2448c41275a193770d8d55a40eea9bb4480a1126c041aecbecfa3e"
+    },
+    {
+      "path": "collision/thumb_metacarpals.STL",
+      "sha256": "5e0b4e9969c2b9c7b0a41b4d0baced6b0d979ac6f786cd551a2ce3f5099118c2"
+    },
+    {
+      "path": "collision/thumb_proximal.STL",
+      "sha256": "9a495ac97fd94bc74287a966ca0fe1dbb2fb457935e1331e694f017200efaa11"
+    },
+    {
+      "path": "collision/thumb_distal.STL",
+      "sha256": "b481863a169b407ec934de761c66b58f71ff8d42bb8c79f0fdd258f74b1ea53b"
+    }
+  ]
+}

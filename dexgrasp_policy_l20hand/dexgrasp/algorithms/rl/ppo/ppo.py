@@ -106,18 +106,33 @@ class PPO:
         
 
     def test(self, path):
-        self.actor_critic.load_state_dict(torch.load(path,map_location=self.device))
+        payload = torch.load(path,map_location=self.device)
+        contract = getattr(self.vec_env.task,'policy_contract',None)
+        if contract is not None:
+            from l20.checkpoint import unpack
+            payload = unpack(payload,contract)
+        self.actor_critic.load_state_dict(payload)
         #self.actor_critic.load_state_dict(torch.load(path))
         self.actor_critic.eval()
 
     def load(self, path):
-        self.actor_critic.load_state_dict(torch.load(path,map_location=self.device))
+        payload = torch.load(path,map_location=self.device)
+        contract = getattr(self.vec_env.task,'policy_contract',None)
+        if contract is not None:
+            from l20.checkpoint import unpack
+            payload = unpack(payload,contract)
+        self.actor_critic.load_state_dict(payload)
         #self.actor_critic.load_state_dict(torch.load(path))
         self.current_learning_iteration = 0 #int(path.split("_")[-1].split(".")[0])
         self.actor_critic.train()
 
     def save(self, path):
-        torch.save(self.actor_critic.state_dict(), path)
+        payload = self.actor_critic.state_dict()
+        contract = getattr(self.vec_env.task,'policy_contract',None)
+        if contract is not None:
+            from l20.checkpoint import pack
+            payload = pack(payload,contract)
+        torch.save(payload,path)
 
     def run(self, num_learning_iterations, log_interval=1):
         id = -1

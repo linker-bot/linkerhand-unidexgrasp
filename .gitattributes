@@ -1,0 +1,2 @@
+# Preserve the checksummed generator MJCF, including upstream whitespace.
+l20/assets/shadow_hand.xml -whitespace

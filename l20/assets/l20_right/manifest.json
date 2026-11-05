@@ -1,0 +1,121 @@
+{
+  "repository": "linker-bot/linkerhand-urdf",
+  "commit": "49f26021b0a91ff5c33150df22970c07bb548672",
+  "files": [
+    {
+      "path": "linkerhand_l20_right.urdf",
+      "git_blob": "088e014173630f2cf2f705510d4327ef1df83033",
+      "sha256": "171c28116fe6f1e7b885fd5cf046044c4367c7d0b8036ab4743946cc8e619b9a"
+    },
+    {
+      "path": "meshes/base_link.STL",
+      "git_blob": "add665fa304b99e26cf7c89b90d830bccd61d40e",
+      "sha256": "bcb87038aee7e2b1ce4c9058eda853cab7447a48f6daf199eece02bfd6f2f5b5"
+    },
+    {
+      "path": "meshes/index_distal.STL",
+      "git_blob": "a19d1a9585574a1d8088a1e5ba5b863fab2b0ee3",
+      "sha256": "7d2f75f7b99d8ce0f3e75f92ffe0986b161c214af6608e392a43459c5331a0b0"
+    },
+    {
+      "path": "meshes/index_metacarpals.STL",
+      "git_blob": "f1b128772df7b5f7cf8e4f6199c8e0253680991a",
+      "sha256": "c1266bde683bf0bb04f5c25b2411a63dc680e25bac6c5d31635aef93f1329a84"
+    },
+    {
+      "path": "meshes/index_middle.STL",
+      "git_blob": "74e3db574b58800580ab666398f949e07de85eb6",
+      "sha256": "cadab94ae419b76a563526a1b69db78ea780b01d56b8122fd7d04419fcf7201a"
+    },
+    {
+      "path": "meshes/index_proximal.STL",
+      "git_blob": "6a3064b21e94e1afd17d186888b35c98a18f3762",
+      "sha256": "d69b2edf389bcf55364d163692d4ddced3098b1e50822a585612b2f112f60562"
+    },
+    {
+      "path": "meshes/middle_distal.STL",
+      "git_blob": "d4d3321d017bdf09c7d2f4f98c60246396696d9f",
+      "sha256": "cdf519b1a6c38610f47f4cc8bce4dafa5b68b3f90e83f0f87456f38a1611ed0d"
+    },
+    {
+      "path": "meshes/middle_metacarpals.STL",
+      "git_blob": "2568c2e0ec974e6a4188d3546a22a16c3ff8cbf1",
+      "sha256": "172f41269341fb6cadd47bec8dc4cc9cc38df8bc17cb24f107dfc1517c6aeceb"
+    },
+    {
+      "path": "meshes/middle_middle.STL",
+      "git_blob": "930e01bb146fd1b53aa82211a624ca0d62a29826",
+      "sha256": "cf17f473febce710a6d570a0f1afe2f1ba46c26bf103bacfd2915646427e46e1"
+    },
+    {
+      "path": "meshes/middle_proximal.STL",
+      "git_blob": "7a4639ba94f7fbeae74e3e1fe0d083286bb65f63",
+      "sha256": "1ba251692df1187eef864b28d00cdb3513d5b931fef231ce386cf2e100b63940"
+    },
+    {
+      "path": "meshes/pinky_distal.STL",
+      "git_blob": "666bc748cc1ee0dbef82bd56b85f002150ffed4e",
+      "sha256": "8e5360b5120a73f131a0cccd65814138f56f323a4344b4f4c88bf29d082c8214"
+    },
+    {
+      "path": "meshes/pinky_metacarpals.STL",
+      "git_blob": "40e62b654eae86fa92e71f9b3bbd390789f746f8",
+      "sha256": "2fe05498b5a8201219be33d94b0a4fdbdd41bd9190f0c3f9fc72ccfc73d7fb64"
+    },
+    {
+      "path": "meshes/pinky_middle.STL",
+      "git_blob": "3428b81805eeeffc67a24fbdb4b87ada5570d619",
+      "sha256": "0daf7b29e316118765b675976de01c48e781be9b515e0a41adcb4b856432f757"
+    },
+    {
+      "path": "meshes/pinky_proximal.STL",
+      "git_blob": "21d42ef98bb4349222e1d0c18990bac92547ee11",
+      "sha256": "735e59053b8459d028ea695a02f842b567302e23ef32a934e6e6b69446fb6372"
+    },
+    {
+      "path": "meshes/ring_distal.STL",
+      "git_blob": "62c1f4b7641fc20be7d779e826baefa1dd30872e",
+      "sha256": "e465ad35e35f23555f6a9e2f7cdfd0af322e878b29db4ede5ecd800c334e6c52"
+    },
+    {
+      "path": "meshes/ring_metacarpals.STL",
+      "git_blob": "d1e2149a08f462bb0c341aefdd3250844d3b5675",
+      "sha256": "4503b1302b1adce2eda9f60de1727a7e481aff0a50bfdd24dd1756b904ca1224"
+    },
+    {
+      "path": "meshes/ring_middle.STL",
+      "git_blob": "3e3aba1e0e9f6ba9d82958a00cfeb5d1180d6d3b",
+      "sha256": "1d009c89043ccf3d94064d51cfa1fb04d7daa960a6a37e381866ca73961d3fe0"
+    },
+    {
+      "path": "meshes/ring_proximal.STL",
+      "git_blob": "c336b91d7eaf41987b0418d03eb9c39b4efb5d8d",
+      "sha256": "93cc3baf41e18ae5705844a5458a6c6709eb359f947414d9611709680686c96a"
+    },
+    {
+      "path": "meshes/thumb_distal.STL",
+      "git_blob": "7aecf0891c52a57b914fdf01bfa19e8a950f36db",
+      "sha256": "20331a2b2ec816f8bde3fcb20e14f9ec308cd7f3ec655659354c489ee9242e45"
+    },
+    {
+      "path": "meshes/thumb_metacarpals.STL",
+      "git_blob": "1edc2125564e4961642070596d2493e79cf7222d",
+      "sha256": "ef6696980669c5c5e3899917ba1837a07399301b1497464bec36b5713980e946"
+    },
+    {
+      "path": "meshes/thumb_metacarpals_base1.STL",
+      "git_blob": "30d9be354715e76f6c50391929094a7b6b674b49",
+      "sha256": "0a0631972979aeade00c1cc607b9acfdc9deb2f2611e2f0faceb1d9c08d256de"
+    },
+    {
+      "path": "meshes/thumb_metacarpals_base2.STL",
+      "git_blob": "6ad54126b1fdd571bae5740ddf55366b904c733f",
+      "sha256": "0dacf81bae8eb994266d736fa54e0b7d9d16ea1209ec0194fc5aae39c3aa8c69"
+    },
+    {
+      "path": "meshes/thumb_proximal.STL",
+      "git_blob": "361776ace5f0c9a420b88c52cc5bde35172feecb",
+      "sha256": "ce43b3d2133f3519a1e8db4ccda2a3dd4fb72302ae181ff04f53744e8397f3bb"
+    }
+  ]
+}

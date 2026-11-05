@@ -1,5 +1,11 @@
 graphics_device_id: 0
 env:
+  handModel: official_l20_right_v2
+  priorDataset: dataset_l20_right_v2
+  allowUnvalidatedPriors: False
+  jointStiffness: 5.0 # simulation starting value; calibrate on hardware
+  jointDamping: 0.1
+  handStartClearance: 0.12 # metres above the screened target grasp
   env_name: "shadow_hand_grasp"
   numEnvs: 1000 #小环境数量
   envSpacing: 1.5
@@ -3262,7 +3268,7 @@ env:
 #    assetRoot: "/media/moning/Newsmy/assets_tiny_my"
     assetRoot: "../assets_tiny_l20"
 #    assetFileName: "mjcf/open_ai_assets/hand/shadow_hand.xml"
-    assetFileName: "urdf/l20_652/urdf/l20_652.urdf"
+    assetFileName: "linkerhand_l20_right_isaac.urdf" # loaded from pinned l20/assets/l20_right
 #    assetFileName: "urdf/rightHand_9dof/mjcf/rightHand_9dof.xml"
 #    assetFileName: "mjcf_RightHand/rightHand_9dof.xml"
 

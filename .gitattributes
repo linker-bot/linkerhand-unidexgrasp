@@ -1,0 +1,3 @@
+# Preserve the checksummed upstream XML files, including their whitespace.
+l20/assets/l20_right/linkerhand_l20_right.urdf -whitespace
+l20/assets/shadow_hand.xml -whitespace

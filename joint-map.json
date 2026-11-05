@@ -1,0 +1,159 @@
+{
+  "mode": "anatomical_correspondence_not_angle_copy",
+  "joints": [
+    {
+      "shadow": "robot0:FFJ3",
+      "legacy": "index_finger_joint0",
+      "official": "index_mcp_roll",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:FFJ2",
+      "legacy": "index_finger_joint1",
+      "official": "index_mcp_pitch",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:FFJ1",
+      "legacy": "index_finger_joint2",
+      "official": "index_pip",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:FFJ0",
+      "legacy": "index_finger_joint3",
+      "official": "index_dip",
+      "independent": false,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:MFJ3",
+      "legacy": "middle_finger_joint0",
+      "official": "middle_mcp_roll",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:MFJ2",
+      "legacy": "middle_finger_joint1",
+      "official": "middle_mcp_pitch",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:MFJ1",
+      "legacy": "middle_finger_joint2",
+      "official": "middle_pip",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:MFJ0",
+      "legacy": "middle_finger_joint3",
+      "official": "middle_dip",
+      "independent": false,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:RFJ3",
+      "legacy": "ring_finger_joint0",
+      "official": "ring_mcp_roll",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:RFJ2",
+      "legacy": "ring_finger_joint1",
+      "official": "ring_mcp_pitch",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:RFJ1",
+      "legacy": "ring_finger_joint2",
+      "official": "ring_pip",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:RFJ0",
+      "legacy": "ring_finger_joint3",
+      "official": "ring_dip",
+      "independent": false,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:LFJ3",
+      "legacy": "little_finger_joint0",
+      "official": "pinky_mcp_roll",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:LFJ2",
+      "legacy": "little_finger_joint1",
+      "official": "pinky_mcp_pitch",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:LFJ1",
+      "legacy": "little_finger_joint2",
+      "official": "pinky_pip",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:LFJ0",
+      "legacy": "little_finger_joint3",
+      "official": "pinky_dip",
+      "independent": false,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:THJ4",
+      "legacy": "thumb_joint0",
+      "official": "thumb_cmc_yaw",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:THJ3",
+      "legacy": "thumb_joint1",
+      "official": "thumb_cmc_roll",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:THJ2",
+      "legacy": "thumb_joint2",
+      "official": "thumb_cmc_pitch",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:THJ1",
+      "legacy": "thumb_joint3",
+      "official": "thumb_mcp",
+      "independent": true,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:THJ0",
+      "legacy": "thumb_joint4",
+      "official": "thumb_dip",
+      "independent": false,
+      "conversion": "spatial_landmark_ik"
+    },
+    {
+      "shadow": "robot0:LFJ4",
+      "legacy": null,
+      "official": null,
+      "independent": false,
+      "conversion": "effect retained in source FK landmarks"
+    }
+  ]
+}
